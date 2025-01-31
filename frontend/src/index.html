@@ -1,0 +1,30 @@
+# Frontend - HTML & JavaScript (React-based UI)
+frontend_code = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detector</title>
+    <script>
+        async function checkNews() {
+            let text = document.getElementById('newsInput').value;
+            let response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({text: text})
+            });
+            let result = await response.json();
+            document.getElementById('result').innerText = 'Prediction: ' + result.prediction;
+        }
+    </script>
+</head>
+<body>
+    <h2>Fake News Detector</h2>
+    <textarea id="newsInput" rows="4" cols="50" placeholder="Enter news text here..."></textarea><br>
+    <button onclick="checkNews()">Check</button>
+    <p id="result"></p>
+</body>
+</html>
+"""
+
+with open("frontend.html", "w") as f:
+    f.write(frontend_code)
